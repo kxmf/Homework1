@@ -1,7 +1,8 @@
 using Homework1.Application.UseCases.GenerateReport.Interfaces;
-using Homework1.Domain.Order;
+using Homework1.Domain;
 using Homework1.Infrastructure.Persistence;
 using Homework1.Infrastructure.Reporting;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Homework1.Infrastructure;

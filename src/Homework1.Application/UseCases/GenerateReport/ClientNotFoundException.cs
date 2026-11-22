@@ -1,8 +1,6 @@
-﻿using Homework1.Domain.Common;
+﻿namespace Homework1.Application.UseCases.GenerateReport;
 
-namespace Homework1.Domain.Order;
-
-public class ClientNotFoundException : DomainException
+public class ClientNotFoundException : Common.ApplicationException
 {
     public ClientNotFoundException(string message) : base(message)
     {

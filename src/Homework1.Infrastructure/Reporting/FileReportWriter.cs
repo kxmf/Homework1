@@ -1,7 +1,8 @@
-using Homework1.Application.UseCases.GenerateReport;
-using Homework1.Application.UseCases.GenerateReport.Interfaces;
 using System.Globalization;
 using System.Text;
+
+using Homework1.Application.UseCases.GenerateReport;
+using Homework1.Application.UseCases.GenerateReport.Interfaces;
 
 namespace Homework1.Infrastructure.Reporting;
 
