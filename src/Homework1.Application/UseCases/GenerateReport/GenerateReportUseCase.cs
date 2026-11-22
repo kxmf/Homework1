@@ -1,6 +1,5 @@
-using Homework1.Application.Common;
 using Homework1.Application.UseCases.GenerateReport.Interfaces;
-using Homework1.Domain.Order;
+using Homework1.Domain;
 
 namespace Homework1.Application.UseCases.GenerateReport;
 
@@ -21,20 +20,20 @@ public class GenerateReportUseCase : IGenerateReportUseCase
 
         var reports = new List<ClientReportDto>();
 
-        foreach (var clientIdLong in clientIds)
+        foreach (var clientId in clientIds)
         {
-            if (!ClientId.TryCreate(clientIdLong, out var clientId))
+            if (clientId <= 0)
             {
-                throw new InvalidIdException($"Invalid client ID '{clientIdLong}'. Client ID must be a positive number greater than zero.");
+                throw new InvalidIdException($"Invalid client ID '{clientId}'. Client ID must be a positive number greater than zero.");
             }
 
             var orders = _orderRepository.GetByClientId(clientId);
             if (orders.Count == 0)
             {
-                throw new ClientNotFoundException($"Client with ID '{clientIdLong}' not found.");
+                throw new ClientNotFoundException($"Client with ID '{clientId}' not found.");
             }
 
-            var ordersSum = orders.Sum(o => o.TotalAmount);
+            var ordersSum = orders.Sum(o => o.Items.Sum(i => i.UnitPrice * i.Quantity));
 
             var favoriteItem = orders
                 .SelectMany(o => o.Items)
@@ -43,7 +42,7 @@ public class GenerateReportUseCase : IGenerateReportUseCase
                 .OrderByDescending(x => x.TotalQuantity)
                 .FirstOrDefault();
 
-            reports.Add(new ClientReportDto(clientIdLong, ordersSum, favoriteItem?.Name ?? string.Empty));
+            reports.Add(new ClientReportDto(clientId, ordersSum, favoriteItem?.Name ?? string.Empty));
         }
 
         var writer = _writers.FirstOrDefault(w => w.Mode == outputMode)
