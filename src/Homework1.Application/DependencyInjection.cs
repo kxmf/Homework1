@@ -1,5 +1,6 @@
 using Homework1.Application.UseCases.GenerateReport;
 using Homework1.Application.UseCases.GenerateReport.Interfaces;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Homework1.Application;

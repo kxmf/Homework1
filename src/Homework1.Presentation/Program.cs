@@ -2,6 +2,7 @@ using Homework1.Application;
 using Homework1.Application.UseCases.GenerateReport;
 using Homework1.Application.UseCases.GenerateReport.Interfaces;
 using Homework1.Infrastructure;
+
 using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection();
